@@ -4,8 +4,8 @@ class Departamento {
 	private $idDepartamento;
 	private $nome;
 
-	public function __construtct($idDepartamento, $nome){
-		$this->idDepartamento = $id;
+	public function __construct($idDepartamento, $nome){
+		$this->idDepartamento = $idDepartamento;
 		$this->nome = $nome;
 	}
 	public function setIdDepartamento($id){

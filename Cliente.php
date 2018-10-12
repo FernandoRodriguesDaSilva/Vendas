@@ -10,11 +10,11 @@ class Cliente extends Pessoa{
 	}
 
 	public function setPontos($pontos){
-		$this->pontosfidelidade = $pontos
+		$this->pontosfidelidade = $pontos;
 	}
 
 	public function getPontos(){
-		return this->pontosfidelidade;
+		return $this->pontosfidelidade;
 	}
 
 }

@@ -14,11 +14,11 @@ class Produto {
 		$this->preco = $preco;
 		$this->departamento = $dep;
 	}
-	public function setProduto($id){
+	public function setIdProduto($id){
 		$this->idProduto = $idProduto;
 	}
 
-	public function getProduto(){
+	public function getIdProduto(){
 		return $this->idProduto;
 	}
 	//////////////
