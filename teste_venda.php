@@ -33,25 +33,67 @@ echo "<tr><td>Nome</td><td>ID</td><td>preco</td><td>Departamento</td><tr>";
 
 foreach ($produtos as $p){
 	echo "<tr>";
-
 	echo "<td>". $p->getIdProduto(). "</td>";
 	echo "<td>". $p->getNome(). "</td>";
 	echo "<td>". $p->getPreco(). "</td>";
 	echo "<td>". $p->getDepartamento()->getNome(). "</td>";
-
 	echo "</tr>";
 }
-
 echo "</table>";
-
 
 // Criando venda ($idVenda=null,$total=0,$cliente=null,$vendedor=null,$produtos=[])
 $venda1 = new Venda(1,0,$clienteJonas,$vendedorPedro);
+$venda2 = new Venda(2,0,$clienteMarcelo,$vendedorPedro);
+$venda3 = new Venda(3,0,$clienteJonas,$vendedorPedro);
 //addProdutos($vendaProduto) => class VendaProduto($pro,$qde,$desc)
-$venda1->addProdutos(new VendaProduto($prodMouse, 1, 0));
-$venda1->addProdutos(new VendaProduto($prodPastel, 2, 0.10));
-$venda1->addProdutos(new VendaProduto($prodFeijao, 5, 0.20));
-// 
+$venda1->addProduto(new VendaProduto($prodMouse, 1, 0));
+$venda1->addProduto(new VendaProduto($prodPastel, 2, 0.10));
+$venda1->addProduto(new VendaProduto($prodFeijao, 5, 0.20));
+$venda1->calculaTotal();
 
+$venda2->addProduto(new VendaProduto($prodMouse, 4, 0));
+$venda2->addProduto(new VendaProduto($prodNote, 2, 0.50));
+$venda2->addProduto(new VendaProduto($prodFeijao, 10, 0.20));
+$venda2->calculaTotal();
 
+$venda3->addProduto(new VendaProduto($prodInto, 1, 0.80));
+$venda3->addProduto(new VendaProduto($prodPastel, 6, 0.10));
+$venda3->addProduto(new VendaProduto($prodFeijao, 5, 0.20));
+$venda3->calculaTotal();
 
+// Array pra imprimir todas as vendas 
+
+$vendas = [$venda1,$venda2,$venda3];
+
+function imprimirVendas($vendas){
+	echo "<hr>";
+	echo "<h3>Vendas</h3>";
+	echo "<hr>";
+	foreach ($vendas as $v) {
+		echo "<P>ID da venda: ". $v->getIdVenda()."</p>";
+		echo "<p> Nome do Vendedor: " . $v->getVendedor()->getNome() ."</p>";
+		echo "<p> Nome do Cliente: " . $v->getCliente()->getNome() ."</p>";
+		echo "<table>";
+
+		echo "<hr><br>";
+// foreach para venda dos produtos
+			// ID / Nome / Quantidade / Departamento / Desconto / Total
+		echo "<tr><td>ID</td><td>Nome</td><td>Quantidade</td><td>Departamento do produtos</td><td>Desconto</td><td>Total</td></tr>";
+		foreach ($v->getProdutos() as $vendaproduto){
+			echo "<tr>";         // class Venda_produto    // class Produto
+			echo "<td>". $vendaproduto->getProduto()->getIdProduto() ."</td>";
+			echo "<td>". $vendaproduto->getProduto()->getNome()."</td>";
+			echo "<td>". $vendaproduto->getQuantidade() ."</td>";
+			echo "<td>". $vendaproduto->getProduto()->getDepartamento()->getNome()."</td>";
+			echo "<td>". $vendaproduto->getDesconto() ."</td>";
+			$total_produto_com_desconto = ($vendaproduto->getProduto()->getPreco() * $vendaproduto->getQuantidade())  * (1 - $vendaproduto->getDesconto());
+			echo "<td> R$ ".$total_produto_com_desconto. "</td>";
+			echo "</tr>";
+		} 
+		echo "</table>";
+		echo "<h4>Total da Venda: ". $v->getTotal() . "</h4>";
+		echo "<hr><br>";
+	}
+}
+
+imprimirVendas($vendas);

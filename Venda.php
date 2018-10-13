@@ -49,18 +49,22 @@ class Venda{
 		return $this->vendedor;
 	}
 
-	public function addProdutos($vendaProduto){
-		if($vendaProduto instanceof VendaProduto){
-			$this->produtos = $produtos;
+	public function addProduto($vendaProd){
+		if($vendaProd instanceof VendaProduto){
+			$this->produtos[] = $vendaProd;
 		}
 	}
 
 	public function getProdutos(){
 		return $this->produtos;
 	}
-
+	// Calcula o total de cada venda
 	public function calculaTotal(){
-
+		$total = 0;
+		foreach ($this->produtos as $p) {
+			$total +=$p->getProduto()->getPreco() * $p->getQuantidade() * (1 - $p->getDesconto());
+		}
+		$this->total = $total;
 	}
 }
 

@@ -10,7 +10,7 @@ class VendaProduto {
 	public function __construct($prod,$quant,$desc){
 		$this->produto = $prod;
 		$this->quantidade = $quant;
-		$this->desc = $desc;
+		$this->desconto = $desc;
 	}
 	// Instanciando a class produto
 	public function setProduto($prod){
